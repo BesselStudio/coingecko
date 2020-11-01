@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.coins.common
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Format, Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class Image(
   thumb: String,
