@@ -3,6 +3,7 @@ import ReleaseTransformations._
 ThisBuild / scalaVersion     := "2.13.3"
 ThisBuild / organization     := "com.besselstudio"
 ThisBuild / organizationName := "Bessel Studio"
+ThisBuild / homepage         := Some(url("https://github.com/besselstudio/coingecko"))
 ThisBuild / developers := List(
   Developer("raul782", "Raul Rodriguez", "raul@besselstudio.com", new URL("https://github.com/raul782"))
 )
