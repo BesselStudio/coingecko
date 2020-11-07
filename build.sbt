@@ -1,3 +1,5 @@
+import ReleaseTransformations._
+
 ThisBuild / scalaVersion     := "2.13.3"
 ThisBuild / organization     := "com.besselstudio"
 ThisBuild / organizationName := "Bessel Studio"
@@ -18,18 +20,27 @@ lazy val root = (project in file("."))
       )
     ),
     crossScalaVersions := Seq(scalaVersion.value, "2.12.12"),
-    publishTo := Some(
-      if (isSnapshot.value)
-        Opts.resolver.sonatypeSnapshots
-      else
-        Opts.resolver.sonatypeStaging
-    ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     ),
-    publishTo := sonatypePublishTo.value,
+    publishTo := sonatypePublishToBundle.value,
     publishMavenStyle := true,
     publishArtifact in Test := false,
-    pomIncludeRepository := { _ => false }
+    pomIncludeRepository := { _ => false },
+    releaseCrossBuild := true,
+    releaseProcess := Seq[ReleaseStep](
+      checkSnapshotDependencies, // check that there are no SNAPSHOT dependencies
+      inquireVersions, // ask user to enter the current and next verion
+      runClean, // clean
+      runTest, // run tests
+      setReleaseVersion, // set release version in version.sbt
+      commitReleaseVersion, // commit the release version
+      tagRelease, // create git tag
+      releaseStepCommandAndRemaining("+publishSigned"), // run +publishSigned command to sonatype stage release
+      setNextVersion, // set next version in version.sbt
+      commitNextVersion, // commint next version
+      releaseStepCommand("sonatypeRelease"), // run sonatypeRelease and publish to maven central
+      pushChanges // push changes to git
+    )
   )
