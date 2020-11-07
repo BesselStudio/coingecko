@@ -5,7 +5,7 @@ The Scala API for coingecko that you always wanted.
 
 Welcome!
 
-[coingecko-api](https://github.com/BesselStudio/coingecko) is an open-source library which implements Coingecko API
+[coingecko-api](https://github.com/BesselStudio/coingecko) is an open-source library which implements Coingecko API. 
 It uses the great [sttp client](https://github.com/softwaremill/sttp) to interact with the API, so you have access to
 any backend that sttp supports.
 

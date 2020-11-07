@@ -311,7 +311,7 @@ class CoingeckoClientImpl(
   ): Either[CoingeckoApiError, Coin] =
     get[Coin](endpoint = s"coins/$id/contract/$contractAddress", QueryParams())
 
-//  override def getExchanges(perPage: Option[Int] = None, page: Option[String] = None): Either[CoingeckoApiError, List[Exchange]] = ???
+
   override def getExchanges(
       perPage: Option[Int] = None,
       page: Option[String] = None
@@ -331,6 +331,7 @@ class CoingeckoClientImpl(
 
   override def getExchangesList: Either[CoingeckoApiError, List[BaseExchange]] =
     get[List[BaseExchange]](endpoint = s"exchanges/list", QueryParams())
+
   override def getExchangesById(
       id: String
   ): Either[CoingeckoApiError, Exchange] =
