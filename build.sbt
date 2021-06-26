@@ -1,6 +1,6 @@
 import ReleaseTransformations._
 
-ThisBuild / scalaVersion     := "2.13.3"
+ThisBuild / scalaVersion     := "2.13.6"
 ThisBuild / organization     := "com.besselstudio"
 ThisBuild / organizationName := "Bessel Studio"
 ThisBuild / homepage         := Some(url("https://github.com/besselstudio/coingecko"))
@@ -20,14 +20,14 @@ lazy val root = (project in file("."))
         "scm:git:git@github.com:besselstudio/coingecko.git"
       )
     ),
-    crossScalaVersions := Seq(scalaVersion.value, "2.12.12"),
+    crossScalaVersions := Seq(scalaVersion.value, "2.12.14"),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")
     ),
     publishTo := sonatypePublishToBundle.value,
     publishMavenStyle := true,
-    publishArtifact in Test := false,
+    Test / publishArtifact := false,
     pomIncludeRepository := { _ => false },
     releaseCrossBuild := true,
     releaseProcess := Seq[ReleaseStep](

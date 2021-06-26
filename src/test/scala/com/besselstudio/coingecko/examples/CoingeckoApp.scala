@@ -2,13 +2,13 @@ package com.besselstudio.coingecko.examples
 
 import com.besselstudio.coingecko.CoingeckoApi
 import com.besselstudio.coingecko.client.CoingeckoClientImpl
-import sttp.client.{HttpURLConnectionBackend, Identity, NothingT, SttpBackend}
+import sttp.client3.{HttpURLConnectionBackend, Identity, SttpBackend}
 
 import scala.util.{Failure, Success, Try}
 
 object CoingeckoApp extends App {
   println(s"Coingecko App Start")
-  implicit lazy val backend: SttpBackend[Identity, Nothing, NothingT] = HttpURLConnectionBackend()
+  implicit lazy val backend: SttpBackend[Identity, Any] = HttpURLConnectionBackend()
   lazy val api = new CoingeckoApi()
 
   lazy val client = new CoingeckoClientImpl(api)
