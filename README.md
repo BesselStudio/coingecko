@@ -14,7 +14,7 @@ any backend that sttp supports.
 Add the following dependency:
 
 ```scala
-"com.besselstudio.coingecko" %% "client" % "0.1.0"
+"com.besselstudio.coingecko" %% "client" % "0.2.0"
 ```
 
 Then, import:
