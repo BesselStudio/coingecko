@@ -45,7 +45,7 @@ object CoingeckoApp extends App {
       case Success(value) =>
         value match {
           case  Left(c) => println(s"List Price failed ${c.code} reason ${c.error}")
-          case Right(priceWithCurrencies) => println(s"Price ${priceWithCurrencies("bitcoin").mkString(",")}")
+          case Right(priceWithCurrencies) => println(s"Price BTC ${priceWithCurrencies("bitcoin").mkString(",")}")
         }
       case Failure(exception) =>
         println(s"Failure ${exception.getMessage}")
