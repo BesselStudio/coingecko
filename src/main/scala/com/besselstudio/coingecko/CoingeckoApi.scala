@@ -1,19 +1,19 @@
 package com.besselstudio.coingecko
 
-import sttp.client.{Identity, NothingT, Response, SttpBackend, UriContext, basicRequest}
+import sttp.client3.{Identity, Response, SttpBackend, UriContext, basicRequest}
 import sttp.model.QueryParams
 
-class CoingeckoApi(implicit val backend: SttpBackend[Identity, Nothing, NothingT]) {
+class CoingeckoApi(implicit val backend: SttpBackend[Identity, Any]) {
   def get(endpoint: String, params: QueryParams): Identity[Response[Either[String, String]]] = {
       val apiUrl = s"${CoingeckoApi.baseUrl}/$endpoint"
       println(uri"${apiUrl}"
-        .params(params).toString())
+        .withParams(params).toString())
       basicRequest
         .get(
           uri"$apiUrl"
-            .params(params)
+            .withParams(params)
         )
-        .send()
+        .send(backend)
   }
 }
 
