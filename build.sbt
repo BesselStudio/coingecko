@@ -1,6 +1,6 @@
 import ReleaseTransformations._
 
-ThisBuild / scalaVersion     := "2.13.6"
+ThisBuild / scalaVersion     := "3.0.1"
 ThisBuild / organization     := "com.besselstudio"
 ThisBuild / organizationName := "Bessel Studio"
 ThisBuild / homepage         := Some(url("https://github.com/besselstudio/coingecko"))
@@ -20,7 +20,9 @@ lazy val root = (project in file("."))
         "scm:git:git@github.com:besselstudio/coingecko.git"
       )
     ),
-    crossScalaVersions := Seq(scalaVersion.value, "2.12.14"),
+    scalacOptions ++= Seq(
+      "-Xmax-inlines", "64" //Solves: Maximal number of successive inlines (32) exceeded
+    ),
     resolvers ++= Seq(
       Resolver.sonatypeRepo("releases"),
       Resolver.sonatypeRepo("snapshots")

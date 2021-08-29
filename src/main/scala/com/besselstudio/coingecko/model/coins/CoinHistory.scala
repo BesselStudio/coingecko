@@ -11,12 +11,12 @@ case class CoinHistory(
   name: String,
   localization: Map[String, String],
   image: Image,
-  marketData: MarketData,
-  communityData: CommunityData,
-  developerData: DeveloperData,
-  publicInterestStats: PublicInterestStats
+  marketData: Option[MarketData],
+  communityData: Option[CommunityData],
+  developerData: Option[DeveloperData],
+  publicInterestStats: Option[PublicInterestStats]
 )
 
 object CoinHistory extends BaseResponse {
-  implicit val format: Format[CoinHistory] = Json.format[CoinHistory]
+  given Format[CoinHistory] = Json.format[CoinHistory]
 }

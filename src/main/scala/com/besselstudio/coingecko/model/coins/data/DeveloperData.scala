@@ -6,16 +6,16 @@ import play.api.libs.json.{Format, Json}
 case class DeveloperData(
   forks: Long,
   stars: Long,
-  subscribers: Long,
-  totalIssues: Long,
-  closedIssues: Long,
-  pullRequestsMerged: Long,
-  pullRequestContributors: Long,
-  codeAdditionsDeletions4Weeks: CodeAdditionsDeletions4Weeks,
-  commitCount4Weeks: Long,
-  last4WeeksCommitActivitySeries: List[Long]
+  subscribers: Option[Long],
+  totalIssues: Option[Long],
+  closedIssues: Option[Long],
+  pullRequestsMerged: Option[Long],
+  pullRequestContributors: Option[Long],
+  codeAdditionsDeletions4Weeks: Option[CodeAdditionsDeletions4Weeks],
+  commitCount4Weeks: Option[Long],
+  last4WeeksCommitActivitySeries: Option[List[Long]]
 )
 
 object DeveloperData extends BaseResponse {
-  implicit val format: Format[DeveloperData] = Json.format[DeveloperData]
+  given Format[DeveloperData] = Json.format[DeveloperData]
 }

@@ -4,11 +4,11 @@ import com.besselstudio.coingecko.model.response.BaseResponse
 import play.api.libs.json.{Format, Json}
 
 case class Image(
-  thumb: String,
-  small: String,
-  large: String
+  thumb: Option[String],
+  small: Option[String],
+  large: Option[String]
 )
 
 object Image extends BaseResponse {
-  implicit val format: Format[Image] = Json.format[Image]
+  given Format[Image] = Json.format[Image]
 }

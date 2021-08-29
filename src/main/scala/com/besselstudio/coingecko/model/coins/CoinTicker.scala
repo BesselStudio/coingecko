@@ -1,13 +1,14 @@
 package com.besselstudio.coingecko.model.coins
 
 import com.besselstudio.coingecko.model.coins.common.Ticker
-import play.api.libs.json.{Json, Reads}
+import com.besselstudio.coingecko.model.response.BaseResponse
+import play.api.libs.json.{Format, Json}
 
 case class CoinTicker(
   name: String,
   tickers: List[Ticker]
 )
 
-object CoinTicker {
-  implicit val reads: Reads[CoinTicker] = Json.reads[CoinTicker]
+object CoinTicker extends BaseResponse {
+  given Format[CoinTicker] = Json.format[CoinTicker]
 }

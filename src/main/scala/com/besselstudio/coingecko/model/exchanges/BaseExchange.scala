@@ -9,5 +9,5 @@ case class BaseExchange(
 )
 
 object BaseExchange  extends BaseResponse {
-  implicit val format: Format[BaseExchange] = Json.format[BaseExchange]
+  given Format[BaseExchange] = Json.format[BaseExchange]
 }

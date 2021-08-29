@@ -1,38 +1,18 @@
 package com.besselstudio.coingecko.client
 
+import play.api.libs.json.{Format, JsError, Json, JsSuccess}
 import com.besselstudio.coingecko.model.coins.CoinPrice.CoinWithCurrencies
-import com.besselstudio.coingecko.{
-  CoingeckoApi,
-  CoingeckoApiError,
-  CoingeckoClient
-}
+import com.besselstudio.coingecko.{CoingeckoApi, CoingeckoApiError, CoingeckoClient}
 import com.besselstudio.coingecko.model.coins.status.ProjectUpdate
-import com.besselstudio.coingecko.model.coins.{
-  BaseCoin,
-  Coin,
-  CoinHistory,
-  CoinMarket,
-  CoinTicker,
-  MarketChart
-}
-import com.besselstudio.coingecko.model.events.{
-  EventCountries,
-  EventTypes,
-  Events
-}
-import com.besselstudio.coingecko.model.exchanges.{
-  BaseExchange,
-  Exchange,
-  ExchangeRates,
-  ExchangeTickers
-}
+import com.besselstudio.coingecko.model.coins.{BaseCoin, Coin, CoinHistory, CoinMarket, CoinTicker, MarketChart}
+import com.besselstudio.coingecko.model.events.{EventCountries, EventTypes, Events}
+import com.besselstudio.coingecko.model.exchanges.{BaseExchange, Exchange, ExchangeRates, ExchangeTickers}
 import com.besselstudio.coingecko.model.global.Global
 import com.besselstudio.coingecko.model.response.PingResponse
-import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 import sttp.model.QueryParams
 
 class CoingeckoClientImpl(
-    api: CoingeckoApi
+  api: CoingeckoApi
 ) extends CoingeckoClient {
 
   override def ping: Either[CoingeckoApiError, PingResponse] =
@@ -237,6 +217,7 @@ class CoingeckoClientImpl(
   ): Either[CoingeckoApiError, CoinHistory] = {
     def buildQuery =
       Map(
+        "date" -> Some(date),
         "localization" -> localization.map(_.toString)
       ).filter(kv => kv._2.nonEmpty)
         .map(kv => kv._1 -> kv._2.getOrElse(""))
@@ -474,8 +455,8 @@ class CoingeckoClientImpl(
   override def getGlobal: Either[CoingeckoApiError, Global] =
     get[Global](endpoint = "global", QueryParams())
 
-  def get[T](endpoint: String, queryParams: QueryParams)(
-      implicit reads: Reads[T]
+  protected def get[T](endpoint: String, queryParams: QueryParams)(
+      using Format[T]
   ): Either[CoingeckoApiError, T] =
     api.get(endpoint, queryParams).body match {
       case Left(json) =>
@@ -487,7 +468,8 @@ class CoingeckoClientImpl(
 
       case Right(json) =>
         Json.parse(json).validate[T] match {
-          case JsSuccess(value, _) => Right(value)
+          case JsSuccess(value, _) =>
+            Right(value)
           case JsError(errors) =>
             Left(
               CoingeckoApiError

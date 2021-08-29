@@ -4,15 +4,15 @@ import com.besselstudio.coingecko.model.response.BaseResponse
 import play.api.libs.json.{Format, Json}
 
 case class CommunityData(
-  facebookLikes: Double,
-  twitterFollowers: Double,
-  redditAveragePosts48h: Double,
-  redditAverageComments48h: Double,
-  redditSubscribers: Double,
-  redditAccountsActive48h: Double,
-  telegramChannelUserCount: Double
+  facebookLikes: Option[Double],
+  twitterFollowers: Option[Double],
+  redditAveragePosts48h: Option[Double],
+  redditAverageComments48h: Option[Double],
+  redditSubscribers: Option[Double],
+  redditAccountsActive48h: Option[Double],
+  telegramChannelUserCount: Option[Double]
 )
 
 object CommunityData extends BaseResponse {
-  implicit val format: Format[CommunityData] = Json.format[CommunityData]
+  given Format[CommunityData] = Json.format[CommunityData]
 }

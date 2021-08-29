@@ -1,5 +1,6 @@
 package com.besselstudio.coingecko.model.coins.status
 
+import com.besselstudio.coingecko.model.response.BaseResponse
 import play.api.libs.json.{Format, Json}
 
 case class ProjectUpdate(
@@ -12,6 +13,6 @@ case class ProjectUpdate(
   project: Project
 )
 
-object ProjectUpdate {
-  implicit val format: Format[ProjectUpdate] = Json.format[ProjectUpdate]
+object ProjectUpdate extends BaseResponse {
+  given Format[ProjectUpdate] = Json.format[ProjectUpdate]
 }

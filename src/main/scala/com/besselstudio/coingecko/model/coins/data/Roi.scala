@@ -10,5 +10,5 @@ case class Roi(
 )
 
 object Roi  extends BaseResponse {
-  implicit val format: Format[Roi] = Json.format[Roi]
+  given Format[Roi] = Json.format[Roi]
 }

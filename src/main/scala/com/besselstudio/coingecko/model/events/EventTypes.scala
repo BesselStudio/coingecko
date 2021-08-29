@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.events
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class EventTypes(
   data: List[String],
@@ -9,5 +9,5 @@ case class EventTypes(
 )
 
 object EventTypes extends BaseResponse {
-  implicit val reads: Reads[EventTypes] = Json.reads[EventTypes]
+  given Format[EventTypes] = Json.format[EventTypes]
 }

@@ -9,6 +9,6 @@ case class Events(
   page: Long
 )
 
-object Events  extends BaseResponse  {
-  implicit val format: Format[Events] = Json.format[Events]
+object Events  extends BaseResponse {
+  given Format[Events] = Json.format[Events]
 }

@@ -20,5 +20,5 @@ case class EventData(
 )
 
 object EventData  extends BaseResponse {
-  implicit val format: Format[EventData] = Json.format[EventData]
+  given Format[EventData] = Json.format[EventData]
 }

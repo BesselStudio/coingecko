@@ -2,7 +2,7 @@ package com.besselstudio.coingecko.model.coins
 
 import com.besselstudio.coingecko.model.coins.data.Roi
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class CoinMarket(
   id: String,
@@ -30,5 +30,5 @@ case class CoinMarket(
 )
 
 object CoinMarket extends BaseResponse {
-  implicit val coinMarketReads: Reads[CoinMarket] = Json.reads[CoinMarket]
+  given Format[CoinMarket] = Json.format[CoinMarket]
 }

@@ -23,6 +23,6 @@ case class Ticker(
 )
 
 object Ticker extends BaseResponse {
-  implicit val format: Format[Ticker] = Json.format[Ticker]
+  given Format[Ticker] = Json.format[Ticker]
 }
 

@@ -1,12 +1,12 @@
 package com.besselstudio.coingecko.model.global
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class Global(
   global: Globaldata
 )
 
 object Global extends BaseResponse {
-  implicit val reads: Reads[Global] = Json.reads[Global]
+  given Format[Global] = Json.format[Global]
 }

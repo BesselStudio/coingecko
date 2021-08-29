@@ -9,5 +9,5 @@ case class EventCountries(
 )
 
 object EventCountries  extends BaseResponse {
-  implicit val format: Format[EventCountries] = Json.format[EventCountries]
+  given Format[EventCountries] = Json.format[EventCountries]
 }

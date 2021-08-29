@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.coins
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class MarketChart(
   prices: List[List[String]],
@@ -10,5 +10,5 @@ case class MarketChart(
 )
 
 object MarketChart extends BaseResponse {
-  implicit val reads: Reads[MarketChart] = Json.reads[MarketChart]
+  given Format[MarketChart] = Json.format[MarketChart]
 }
