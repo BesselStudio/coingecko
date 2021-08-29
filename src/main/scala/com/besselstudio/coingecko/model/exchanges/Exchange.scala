@@ -1,8 +1,7 @@
 package com.besselstudio.coingecko.model.exchanges
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.OFormat
-import ai.x.play.json.{CamelToSnakeNameEncoder, Jsonx, NameEncoder}
+import play.api.libs.json.{Format, Json}
 
 case class Exchange(
   id: String,
@@ -31,6 +30,5 @@ case class Exchange(
 )
 
 object Exchange extends BaseResponse {
-  implicit val encoder: NameEncoder = CamelToSnakeNameEncoder()
-  implicit lazy val format: OFormat[Exchange] = Jsonx.formatCaseClass[Exchange]
+  given Format[Exchange] = Json.format[Exchange]
 }

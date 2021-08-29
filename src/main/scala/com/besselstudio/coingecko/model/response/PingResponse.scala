@@ -1,13 +1,13 @@
 package com.besselstudio.coingecko.model.response
 
-import play.api.libs.json._
+import play.api.libs.json.{Format, Json}
 
 case class PingResponse(
   geckoSays: String
 )
 
 object PingResponse extends BaseResponse {
-  implicit val pingReads: Reads[PingResponse] = Json.reads[PingResponse]
+  given Format[PingResponse] = Json.format[PingResponse]
 }
 
 

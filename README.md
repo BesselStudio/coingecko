@@ -12,7 +12,12 @@ any backend that sttp supports.
 ## Setup with sbt
 
 Add the following dependency:
+Scala 3
+```scala
+"com.besselstudio.coingecko" %% "client" % "3.0.0"
+```
 
+Scala 2, we will backport updates in the branch 2.x
 ```scala
 "com.besselstudio.coingecko" %% "client" % "0.2.0"
 ```
@@ -34,7 +39,7 @@ import scala.util.{Failure, Success, Try}
 
 object CoingeckoApp extends App {
   println(s"Coingecko App Start")
-  implicit lazy val backend: SttpBackend[Identity, Any] = HttpURLConnectionBackend()
+  given backend: SttpBackend[Identity, Any] = HttpURLConnectionBackend()
   lazy val api = new CoingeckoApi()
 
   lazy val client = new CoingeckoClientImpl(api)

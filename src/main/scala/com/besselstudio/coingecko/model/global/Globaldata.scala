@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.global
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class Globaldata(
   activeCryptocurrencies: Long,
@@ -17,5 +17,5 @@ case class Globaldata(
 )
 
 object Globaldata extends BaseResponse {
-  implicit val reads: Reads[Globaldata] = Json.reads[Globaldata]
+  given Format[Globaldata] = Json.format[Globaldata]
 }

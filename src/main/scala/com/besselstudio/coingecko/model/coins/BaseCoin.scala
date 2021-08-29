@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.coins
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class BaseCoin(
   id: String,
@@ -9,6 +9,6 @@ case class BaseCoin(
   name: String
 )
 
-object BaseCoin extends BaseResponse{
-  implicit val baseCoinReads: Reads[BaseCoin] = Json.reads[BaseCoin]
+object BaseCoin extends BaseResponse {
+  given Format[BaseCoin] = Json.format[BaseCoin]
 }

@@ -1,13 +1,13 @@
 package com.besselstudio.coingecko.model.coins.data
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Format, Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class PublicInterestStats(
-  alexaRank: Long,
-  bingMatches: Long
+  alexaRank: Option[Long],
+  bingMatches: Option[Long]
 )
 
 object PublicInterestStats extends BaseResponse {
-  implicit val format: Format[PublicInterestStats] = Json.format[PublicInterestStats]
+  given Format[PublicInterestStats] = Json.format[PublicInterestStats]
 }

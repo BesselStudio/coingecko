@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.exchanges
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Reads}
+import play.api.libs.json.{Format, Json}
 
 case class Rate(
   name: String,
@@ -11,5 +11,5 @@ case class Rate(
 )
 
 object Rate extends BaseResponse {
-  implicit val reads: Reads[Rate] = Json.reads[Rate]
+  given Format[Rate] = Json.format[Rate]
 }

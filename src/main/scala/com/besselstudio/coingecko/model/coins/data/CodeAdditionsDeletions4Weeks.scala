@@ -9,5 +9,5 @@ case class CodeAdditionsDeletions4Weeks(
 )
 
 object CodeAdditionsDeletions4Weeks extends BaseResponse {
-  implicit val format: Format[CodeAdditionsDeletions4Weeks] = Json.format[CodeAdditionsDeletions4Weeks]
+  given Format[CodeAdditionsDeletions4Weeks] = Json.format[CodeAdditionsDeletions4Weeks]
 }

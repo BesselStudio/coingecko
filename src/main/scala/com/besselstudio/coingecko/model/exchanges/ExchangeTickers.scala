@@ -11,5 +11,5 @@ case class ExchangeTickers(
 
 
 object ExchangeTickers  extends BaseResponse {
-  implicit val format: Format[ExchangeTickers] = Json.format[ExchangeTickers]
+  given Format[ExchangeTickers] = Json.format[ExchangeTickers]
 }

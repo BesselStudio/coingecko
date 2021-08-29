@@ -8,5 +8,5 @@ case class Coin(
 )
 
 object Coin extends BaseResponse {
-  implicit val format: Format[Coin] = Json.format[Coin]
+  given Format[Coin] = Json.format[Coin]
 }

@@ -1,7 +1,7 @@
 package com.besselstudio.coingecko.model.coins.common
 
 import com.besselstudio.coingecko.model.response.BaseResponse
-import play.api.libs.json.{Json, Format}
+import play.api.libs.json.{Format, Json}
 
 case class Market(
   name: String,
@@ -10,5 +10,5 @@ case class Market(
 )
 
 object Market extends BaseResponse {
-  implicit val format: Format[Market] = Json.format[Market]
+  given Format[Market] = Json.format[Market]
 }
