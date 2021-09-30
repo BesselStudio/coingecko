@@ -2,7 +2,7 @@ package com.besselstudio.coingecko.client
 
 import play.api.libs.json.{Format, JsError, Json, JsSuccess}
 import com.besselstudio.coingecko.model.coins.CoinPrice.CoinWithCurrencies
-import com.besselstudio.coingecko.{CoingeckoApi, CoingeckoApiError, CoingeckoClient}
+import com.besselstudio.coingecko.{CoingeckoApiError, CoingeckoClient}
 import com.besselstudio.coingecko.model.coins.status.ProjectUpdate
 import com.besselstudio.coingecko.model.coins.{BaseCoin, Coin, CoinHistory, CoinMarket, CoinTicker, MarketChart}
 import com.besselstudio.coingecko.model.events.{EventCountries, EventTypes, Events}
@@ -11,9 +11,7 @@ import com.besselstudio.coingecko.model.global.Global
 import com.besselstudio.coingecko.model.response.PingResponse
 import sttp.model.QueryParams
 
-class CoingeckoClientImpl(
-  api: CoingeckoApi
-) extends CoingeckoClient {
+trait CoingeckoApiClient extends CoingeckoClient {
 
   override def ping: Either[CoingeckoApiError, PingResponse] =
     get[PingResponse](endpoint = "ping", QueryParams())
@@ -455,26 +453,7 @@ class CoingeckoClientImpl(
   override def getGlobal: Either[CoingeckoApiError, Global] =
     get[Global](endpoint = "global", QueryParams())
 
-  protected def get[T](endpoint: String, queryParams: QueryParams)(
+  def get[T](endpoint: String, queryParams: QueryParams)(
       using Format[T]
-  ): Either[CoingeckoApiError, T] =
-    api.get(endpoint, queryParams).body match {
-      case Left(json) =>
-        Json.parse(json).validate[CoingeckoApiError] match {
-          case JsSuccess(value, _) => Left(value)
-          case JsError(errors) =>
-            Left(CoingeckoApiError.internalApiError(Some("Unknown Api Error")))
-        }
-
-      case Right(json) =>
-        Json.parse(json).validate[T] match {
-          case JsSuccess(value, _) =>
-            Right(value)
-          case JsError(errors) =>
-            Left(
-              CoingeckoApiError
-                .internalApiError(Some(s"Invalid Response for $endpoint"))
-            )
-        }
-    }
+  ): Either[CoingeckoApiError, T]
 }
