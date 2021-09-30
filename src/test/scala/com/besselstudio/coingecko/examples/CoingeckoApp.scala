@@ -1,7 +1,8 @@
 package com.besselstudio.coingecko.examples
 
-import com.besselstudio.coingecko.CoingeckoApi
-import com.besselstudio.coingecko.client.CoingeckoClientImpl
+import com.besselstudio.coingecko.{CoingeckoApi, CoingeckoApiError}
+import com.besselstudio.coingecko.client.{CoingeckoApiBasic, CoingeckoApiClient}
+import play.api.libs.json.{Format, JsError, JsSuccess, Json}
 import sttp.client3.{HttpURLConnectionBackend, Identity, SttpBackend}
 
 import scala.util.{Failure, Success, Try}
@@ -9,9 +10,8 @@ import scala.util.{Failure, Success, Try}
 object CoingeckoApp extends App {
   println(s"Coingecko App Start")
   given SttpBackend[Identity, Any] = HttpURLConnectionBackend()
-  lazy val api = new CoingeckoApi()
-
-  lazy val client = new CoingeckoClientImpl(api)
+  lazy val api = CoingeckoApi[Identity, Any]()
+  lazy val client = CoingeckoApiBasic(api)
 
   Try {
     client.ping

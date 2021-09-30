@@ -3,8 +3,8 @@ package com.besselstudio.coingecko
 import sttp.client3.{Identity, Response, SttpBackend, UriContext, basicRequest}
 import sttp.model.QueryParams
 
-class CoingeckoApi(using val backend: SttpBackend[Identity, Any]) {
-  def get(endpoint: String, params: QueryParams): Identity[Response[Either[String, String]]] = {
+class CoingeckoApi[F[_], P](using val backend: SttpBackend[F, P]) {
+  def get(endpoint: String, params: QueryParams): F[Response[Either[String, String]]] = {
       val apiUrl = s"${CoingeckoApi.baseUrl}/$endpoint"
       println(uri"${apiUrl}"
         .withParams(params).toString())
